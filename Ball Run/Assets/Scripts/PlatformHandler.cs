@@ -13,22 +13,32 @@ public class PlatformHandler : MonoBehaviour
 
     [SerializeField] List<GameObject> pickups;
     [SerializeField] List<GameObject> obstacles;
+    [SerializeField] [Range(0, 1)] float initialObstacleProbability;
+    [SerializeField] [Range(0, 1)] float hardObstacleProbability;
+    [SerializeField] [Range(0, 0.5f)] float obstacleProbabilityAcceleration;
 
     static int lastPickupPosition = lastPickupPosition = (int)(random.NextDouble() * 3);
     static int pickupsInRow = 0;
+    static float obstacleProbability = -1;
     int minPickupsInRow = 5;
     void Start()
     {
-        if(PlayerControls.playerMovementDistance == 0 && GetComponent<BoxCollider>()!=null) PlayerControls.playerMovementDistance = GetComponent<BoxCollider>().size.z/1.5f;
+        if(obstacleProbability<0) obstacleProbability = initialObstacleProbability;
+        if (PlayerControls.playerMovementDistance == 0 && GetComponent<BoxCollider>() != null) PlayerControls.playerMovementDistance = GetComponent<BoxCollider>().size.z / 1.5f;
     }
     public void RemovePlatform()
     {
         Destroy(gameObject);
     }
-    public void PlaceObjectOnPath(float angleY)
+    public void PlaceObjectOnPath(float angleY,bool increasObstacleProbability)
     {
-        int randomInt = random.Next(0, 100);
-        if (randomInt<20)
+        if (increasObstacleProbability&&obstacleProbability<hardObstacleProbability)
+        {
+            obstacleProbability += obstacleProbabilityAcceleration;
+        }
+        int maxNum = 100;
+        int randomInt = random.Next(0, maxNum);
+        if (randomInt < maxNum * obstacleProbability)
         {
             GenerateObject(obstacles, angleY);
         }

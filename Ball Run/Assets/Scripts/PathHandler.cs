@@ -9,9 +9,10 @@ public class PathHandler : MonoBehaviour
     public static float pathSeperatorDistance;
     public static bool pathRunning;
 
-    [SerializeField] float movementSpeed;
+    [SerializeField] float initialSpeed;
     [SerializeField] float scaleDistanceFactor;
     [SerializeField] float maxSpeed;
+    [SerializeField] float initialAcceleration;
     [SerializeField] float acceleration;
     [SerializeField] Transform playerBall;
     [SerializeField] float platformAlignSpeed;
@@ -39,6 +40,7 @@ public class PathHandler : MonoBehaviour
     float targetAngle;
     float currentAngle;
     float currentSpeed;
+    float movementSpeed;
     float _turnPlatformShift;
     float distance = 0;
     int platformsSinceLastTurn = 0;
@@ -48,6 +50,7 @@ public class PathHandler : MonoBehaviour
     TextMeshProUGUI distanceBoard;
     private void Start()
     {
+        movementSpeed = 0;
         pathRunning = true;
         _turnPlatformShift = 0f;
         directionSet = true;
@@ -96,6 +99,9 @@ public class PathHandler : MonoBehaviour
 
         if (!pathRunning) return;
         if(currentSpeed != 0) currentSpeed = movementSpeed;
+
+        movementSpeed = (movementSpeed < initialSpeed) ? movementSpeed + Time.deltaTime * initialAcceleration : movementSpeed;
+
         float diameter = playerBall.localScale.x;
         playerBall.Rotate(Time.deltaTime * movementSpeed * 180 / (Mathf.PI * diameter), 0,0);
         IncreaseDistance();
@@ -272,7 +278,8 @@ public class PathHandler : MonoBehaviour
             addedPath.transform.rotation = Quaternion.Euler(0, playerTransform.eulerAngles.y*turnFactor+nextDirection.x*90*(1-turnFactor), 0);
             if(turnType == TurnType.Straight)
             {
-                addedPath.GetComponent<PlatformHandler>().PlaceObjectOnPath(playerTransform.eulerAngles.y * turnFactor + nextDirection.x * 90 * (turnFactor - 1));
+                float angle = playerTransform.eulerAngles.y * turnFactor + nextDirection.x * 90 * (turnFactor - 1);
+                addedPath.GetComponent<PlatformHandler>().PlaceObjectOnPath(angle,movementSpeed>=maxSpeed);
             }
             addedPath.SetActive(false);
             platforms.Add(addedPath);
