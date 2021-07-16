@@ -5,26 +5,32 @@ using UnityEngine;
 
 public class ScoreHandler
 {
-    static float score;
+    static int gameScore;
 
     TextMeshProUGUI scoreBoard = GameObject.FindGameObjectWithTag("Score").GetComponent<TextMeshProUGUI>();
-    public ScoreHandler(int _score)
+    public ScoreHandler(int score)
     {
-        score = _score;
+        gameScore = score;
     }
     public ScoreHandler()
     {
 
     }
+    public static void AddScoreToTotal()
+    {
+        PlayerPrefs.SetInt("TotalScore", PlayerPrefs.GetInt("TotalScore") + gameScore);
+        PlayerPrefs.Save();
+        gameScore = 0;
+    }
     public void ChangeScore(int delta)
     {
-        score += delta;
+        gameScore += delta;
     }
     public void DisplayScore()
     {
         if (scoreBoard != null)
         {
-            scoreBoard.text = $"Score: {score}";
+            scoreBoard.text = $"Score: {gameScore}";
         }
         else
         {

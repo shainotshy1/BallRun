@@ -28,7 +28,7 @@ public class PlayerCollisionHandler : MonoBehaviour
         if (collision.gameObject.tag == "Obstacle")
         {
             PlayerControls playerControls = FindObjectOfType<PlayerControls>();
-            StartCoroutine(playerControls.PlayerDeath());
+            playerControls.PlayerDeath();
         }
     }
     private void Update()
