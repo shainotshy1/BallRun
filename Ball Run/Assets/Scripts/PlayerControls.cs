@@ -144,7 +144,8 @@ public class PlayerControls : MonoBehaviour
     void Update()
     {
         isGrounded = rigidBody.GetComponent<PlayerCollisionHandler>().playerGrounded;
-        if (transform.localPosition.y < -10)
+
+        if (transform.position.y < -10)
         {
             PlayerDeath();
         }
