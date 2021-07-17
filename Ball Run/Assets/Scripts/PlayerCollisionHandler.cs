@@ -5,12 +5,13 @@ using TMPro;
 
 public class PlayerCollisionHandler : MonoBehaviour
 {
-    [HideInInspector] public bool playerGrounded = true;
+    [HideInInspector] public bool playerGrounded;
 
     ScoreHandler scoreHandler;
     private void Start()
     {
         scoreHandler = new ScoreHandler(0);
+        playerGrounded = false;
     }
     private void OnCollisionStay(Collision collision)
     {
@@ -28,6 +29,7 @@ public class PlayerCollisionHandler : MonoBehaviour
         if (collision.gameObject.tag == "Obstacle")
         {
             PlayerControls playerControls = FindObjectOfType<PlayerControls>();
+            ScoreHandler.AddScoreToTotal();
             playerControls.PlayerDeath();
         }
     }

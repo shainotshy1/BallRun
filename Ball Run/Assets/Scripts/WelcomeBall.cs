@@ -8,6 +8,7 @@ public class WelcomeBall : MonoBehaviour
 {
     [SerializeField] float jumpVelocity;
     [SerializeField] TextMeshProUGUI totalScore;
+    [SerializeField] TextMeshProUGUI highScore;
     Rigidbody rigidBody;
     float initalY;
     private void Awake()
@@ -21,7 +22,8 @@ public class WelcomeBall : MonoBehaviour
     }
     private void Update()
     {
-        totalScore.text = $"Total Score: {PlayerPrefs.GetInt("TotalScore")}";
+        totalScore.text = $"Total: {PlayerPrefs.GetInt("TotalScore")}";
+        highScore.text = $"High Score: {PlayerPrefs.GetInt("HighScore")}";
         if (transform.position.y<=initalY)
         {
             rigidBody.velocity = Vector3.up * jumpVelocity;

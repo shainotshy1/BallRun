@@ -16,11 +16,18 @@ public class ScoreHandler
     {
 
     }
+    public static void ResetScore()
+    {
+        gameScore = 0;
+    }
     public static void AddScoreToTotal()
     {
+        if (PlayerPrefs.GetInt("HighScore") < gameScore)
+        {
+            PlayerPrefs.SetInt("HighScore", gameScore);
+        }
         PlayerPrefs.SetInt("TotalScore", PlayerPrefs.GetInt("TotalScore") + gameScore);
         PlayerPrefs.Save();
-        gameScore = 0;
     }
     public void ChangeScore(int delta)
     {

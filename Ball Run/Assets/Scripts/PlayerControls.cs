@@ -32,6 +32,7 @@ public class PlayerControls : MonoBehaviour
     {
         setPosition = Position.Middle;
         controlsEnabled = true;
+        ScoreHandler.ResetScore();
 
         foreach (Transform child in transform)
         {
@@ -123,7 +124,6 @@ public class PlayerControls : MonoBehaviour
     }
     public void PlayerDeath()
     {
-        ScoreHandler.AddScoreToTotal();
         PathHandler.pathRunning = false;
         canvas.enabled = true;
         PausePhysics();
