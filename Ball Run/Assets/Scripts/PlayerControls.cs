@@ -63,7 +63,10 @@ public class PlayerControls : MonoBehaviour
             rigidBody.velocity = Vector3.up*jumpInitialVelocity;
         }
         if((Input.GetKey(KeyCode.DownArrow)||Input.GetKey(KeyCode.LeftShift) || GetComponent<Swipe>().SwipeDown) && !isGrounded){
-            rigidBody.velocity = Vector3.down * jumpInitialVelocity;
+            if (rigidBody.velocity.y>=-jumpInitialVelocity)
+            {
+                rigidBody.velocity = Vector3.down * jumpInitialVelocity;
+            }
         }
         if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A) || GetComponent<Swipe>().SwipeLeft)
         {

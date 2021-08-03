@@ -28,6 +28,7 @@ public class ScoreHandler
         }
         PlayerPrefs.SetInt("TotalScore", PlayerPrefs.GetInt("TotalScore") + gameScore);
         PlayerPrefs.Save();
+        ResetScore();
     }
     public void ChangeScore(int delta)
     {
