@@ -33,8 +33,4 @@ public class PlayerCollisionHandler : MonoBehaviour
             playerControls.PlayerDeath();
         }
     }
-    private void Update()
-    {
-        scoreHandler.DisplayScore();
-    }
 }

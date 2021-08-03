@@ -38,6 +38,7 @@ public class Pickups : MonoBehaviour
         {
             ScoreHandler scoreHandler = new ScoreHandler();
             scoreHandler.ChangeScore(scoreValue);
+            scoreHandler.DisplayScore();
             Destroy(gameObject);
         }
     }
