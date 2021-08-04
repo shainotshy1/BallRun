@@ -195,7 +195,6 @@ public class PlayerControls : MonoBehaviour
         rigidBody.useGravity = true;
         rigidBody.gameObject.GetComponent<SphereCollider>().enabled = true;
     }
-
     void Update()
     {
         isGrounded = collisionHandler.playerGrounded;

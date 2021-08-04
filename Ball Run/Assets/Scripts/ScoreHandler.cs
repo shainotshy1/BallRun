@@ -6,13 +6,15 @@ using UnityEngine;
 public class ScoreHandler
 {
     static int gameScore;
-    static int previousTotal;
+    static int additionalScore;
+    static int previousScore;
 
     TextMeshProUGUI scoreBoard = GameObject.FindGameObjectWithTag("Score").GetComponent<TextMeshProUGUI>();
     public ScoreHandler(int score)
     {
         gameScore = score;
-        previousTotal = PlayerPrefs.GetInt("TotalScore");
+        additionalScore = score;
+        previousScore = score;
     }
     public ScoreHandler()
     {
@@ -21,11 +23,12 @@ public class ScoreHandler
     public static void ResetScore()
     {
         gameScore = 0;
+        additionalScore = 0;
     }
     public static void SetScoreToPrevious()
     {
+        gameScore = previousScore;
         PlayerPrefs.SetInt("TotalScore", PlayerPrefs.GetInt("TotalScore") - gameScore);
-        previousTotal = PlayerPrefs.GetInt("TotalScore");
     }
     public static void AddScoreToTotal()
     {
@@ -33,13 +36,15 @@ public class ScoreHandler
         {
             PlayerPrefs.SetInt("HighScore", gameScore);
         }
-        PlayerPrefs.SetInt("TotalScore", PlayerPrefs.GetInt("TotalScore") + gameScore);
+        PlayerPrefs.SetInt("TotalScore", PlayerPrefs.GetInt("TotalScore") + additionalScore);
         PlayerPrefs.Save();
         ResetScore();
     }
     public void ChangeScore(int delta)
     {
         gameScore += delta;
+        additionalScore += delta;
+        previousScore = gameScore;
     }
     public void DisplayScore()
     {
