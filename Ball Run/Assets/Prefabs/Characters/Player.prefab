@@ -446,7 +446,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e51ac38cd8c83544597d83aabce030ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  reviveCost: 100
+  reviveCost: 500
   jumpInitialVelocity: 90
   horizontalSpeed: 10
   revivalIndestructableTime: 2
