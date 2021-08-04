@@ -128,21 +128,6 @@ public class PathHandler : MonoBehaviour
     {
         currentTurnType = platforms[pathsInBackAmount].GetComponent<PlatformHandler>().turnType;
 
-        /*for(int i = pathsInBackAmount-1; i < platforms.Count; i++)
-        {
-            TurnType turnType = platforms[i].GetComponent<PlatformHandler>().turnType;
-            if (turnType != TurnType.Straight)
-            {
-                float distanceToTurn = PathPlayerDistance(i);
-                if (distanceToTurn <= 0 && currentSpeed != 0)
-                {
-                    currentTurnType = turnType;
-                    directionSet = false;
-                    currentSpeed = 0;
-                }
-                break;
-            }
-        }*/
         if (currentTurnType != TurnType.Straight && currentSpeed != 0)
         {
             float distance = PathPlayerDistance(pathsInBackAmount);

@@ -3,14 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class PlayerControls : MonoBehaviour
 {
     public static float playerMovementDistance = 0f;
+    public static bool collisionsEnabled = true;
 
+    [SerializeField] int reviveCost;
     [SerializeField] float jumpInitialVelocity;
     [SerializeField] float horizontalSpeed;
+    [SerializeField] float revivalIndestructableTime;
+    [SerializeField] float revivalCantAffordMessageTime;
     [SerializeField] InputAction movement;
+    [SerializeField] TextMeshProUGUI reviveText;
 
     enum Position
     {
@@ -22,7 +28,9 @@ public class PlayerControls : MonoBehaviour
     Position setPosition;
     Transform bodyTransform;
     Rigidbody rigidBody;
+    PlayerCollisionHandler collisionHandler;
     Canvas canvas;
+    
     private void Awake()
     {
         canvas = GameObject.FindGameObjectWithTag("GameOver").GetComponent<Canvas>();
@@ -42,6 +50,7 @@ public class PlayerControls : MonoBehaviour
                 {
                     bodyTransform = grandChild;
                     rigidBody = grandChild.GetComponent<Rigidbody>();
+                    collisionHandler = rigidBody.GetComponent<PlayerCollisionHandler>();
                 }
             }
         }
@@ -127,11 +136,54 @@ public class PlayerControls : MonoBehaviour
     }
     public void PlayerDeath()
     {
+        ResetReviveButton();
         PathHandler.pathRunning = false;
         canvas.enabled = true;
         PausePhysics();
     }
-
+    public void Revive()
+    {
+        int currentTotal = PlayerPrefs.GetInt("TotalScore");
+        if (currentTotal >= reviveCost)
+        {
+            ScoreHandler.SetScoreToPrevious();
+            PathHandler.pathRunning = true;
+            PlayerPrefs.SetInt("TotalScore", currentTotal - reviveCost);
+            canvas.enabled = false;
+            ResetPhysics();
+            StartCoroutine(RevivalCoroutine());
+        }
+        else
+        {
+            StartCoroutine(UnableToAffordCoroutine());
+        }
+    }
+    public void ResetReviveButton()
+    {
+        reviveText.text = "Revive for " + reviveCost;
+    }
+    IEnumerator UnableToAffordCoroutine()
+    {
+        reviveText.text = "Can't Afford";
+        float time = revivalCantAffordMessageTime;
+        while (time >= 0)
+        {
+            time -= Time.deltaTime;
+            yield return new WaitForEndOfFrame();
+        }
+        ResetReviveButton();
+    }
+    IEnumerator RevivalCoroutine()
+    {
+        collisionsEnabled = false;
+        float time = revivalIndestructableTime;
+        while (time > 0)
+        {
+            time -= Time.deltaTime;
+            yield return new WaitForEndOfFrame();
+        }
+        collisionsEnabled = true;
+    }
     private void PausePhysics()
     {
         rigidBody.velocity = Vector3.zero;
@@ -146,7 +198,7 @@ public class PlayerControls : MonoBehaviour
 
     void Update()
     {
-        isGrounded = rigidBody.GetComponent<PlayerCollisionHandler>().playerGrounded;
+        isGrounded = collisionHandler.playerGrounded;
 
         if (transform.position.y < -10)
         {

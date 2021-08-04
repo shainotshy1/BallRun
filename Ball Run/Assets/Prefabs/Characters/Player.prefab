@@ -446,8 +446,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e51ac38cd8c83544597d83aabce030ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  reviveCost: 100
   jumpInitialVelocity: 90
   horizontalSpeed: 10
+  revivalIndestructableTime: 2
+  revivalCantAffordMessageTime: 1
   movement:
     m_Name: Movement
     m_Type: 0
@@ -480,6 +483,7 @@ MonoBehaviour:
       m_Groups: 
       m_Action: Movement
       m_Flags: 8
+  reviveText: {fileID: 0}
 --- !u!114 &4480786597066355418
 MonoBehaviour:
   m_ObjectHideFlags: 0

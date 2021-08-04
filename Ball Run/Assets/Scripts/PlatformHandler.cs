@@ -8,7 +8,6 @@ public enum TurnType
 }
 public class PlatformHandler : MonoBehaviour
 {
-    public static readonly System.Random random = new System.Random();
     public TurnType turnType;
 
     [SerializeField] List<GameObject> pickups;
@@ -17,7 +16,8 @@ public class PlatformHandler : MonoBehaviour
     [SerializeField] [Range(0, 1)] float hardObstacleProbability;
     [SerializeField] [Range(0, 0.5f)] float obstacleProbabilityAcceleration;
 
-    static int lastPickupPosition = lastPickupPosition = (int)(random.NextDouble() * 3);
+    static readonly System.Random random = new System.Random();
+    static int lastPickupPosition = (int)(random.NextDouble() * 3);
     static int pickupsInRow = 0;
     static float obstacleProbability = -1;
     int minPickupsInRow = 5;
