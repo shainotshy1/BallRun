@@ -32,7 +32,6 @@ public class PlayerCollisionHandler: MonoBehaviour
         if (collision.gameObject.tag == "Obstacle" && PlayerControls.collisionsEnabled)
         {
             PlayerControls playerControls = FindObjectOfType<PlayerControls>();
-            ScoreHandler.AddScoreToTotal();
             playerControls.PlayerDeath();
         }
     }

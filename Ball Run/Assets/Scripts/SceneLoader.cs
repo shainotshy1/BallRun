@@ -42,7 +42,6 @@ public class SceneLoader : MonoBehaviour
     public void LoadMainMenu()
     {
         SceneManager.LoadScene(0);
-        ScoreHandler.AddScoreToTotal();
     }
     public void LoadGame()
     {

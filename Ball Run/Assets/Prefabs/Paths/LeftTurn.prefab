@@ -48,6 +48,9 @@ MonoBehaviour:
   turnType: 0
   pickups: []
   obstacles: []
+  initialObstacleProbability: 0
+  hardObstacleProbability: 0
+  obstacleProbabilityAcceleration: 0
 --- !u!65 &5001174526602243979
 BoxCollider:
   m_ObjectHideFlags: 0

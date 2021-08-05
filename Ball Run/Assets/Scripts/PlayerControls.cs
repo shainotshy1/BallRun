@@ -64,17 +64,21 @@ public class PlayerControls : MonoBehaviour
     {
         movement.Disable();
     }
+    private void SetYVelocity(float velocity)
+    {
+        rigidBody.velocity = new Vector3(rigidBody.velocity.x, velocity, rigidBody.velocity.z);
+    }
     private void ProcessInput()
     {
         ResetPhysics();
         if ((Input.GetKey(KeyCode.Space)||GetComponent<Swipe>().SwipeUp) && isGrounded)
         {
-            rigidBody.velocity = Vector3.up*jumpInitialVelocity;
+            SetYVelocity(jumpInitialVelocity);
         }
         if((Input.GetKey(KeyCode.DownArrow)||Input.GetKey(KeyCode.LeftShift) || GetComponent<Swipe>().SwipeDown) && !isGrounded){
             if (rigidBody.velocity.y>=-jumpInitialVelocity)
             {
-                rigidBody.velocity = Vector3.down * jumpInitialVelocity;
+                SetYVelocity(-jumpInitialVelocity);
             }
         }
         if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A) || GetComponent<Swipe>().SwipeLeft)
@@ -146,7 +150,6 @@ public class PlayerControls : MonoBehaviour
         int currentTotal = PlayerPrefs.GetInt("TotalScore");
         if (currentTotal >= reviveCost)
         {
-            ScoreHandler.SetScoreToPrevious();
             PathHandler.pathRunning = true;
             PlayerPrefs.SetInt("TotalScore", currentTotal - reviveCost);
             canvas.enabled = false;
