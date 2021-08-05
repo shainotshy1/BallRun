@@ -263,7 +263,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-32154
+  m_Name: pb_Mesh31540
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -696,7 +696,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 862011827}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 12, y: 9, z: 0}
+  m_LocalPosition: {x: 10, y: 9, z: 0}
   m_LocalScale: {x: 6, y: 6, z: 6}
   m_Children: []
   m_Father: {fileID: 2067294369}
@@ -12465,7 +12465,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-31930
+  m_Name: pb_Mesh31496
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -12838,7 +12838,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1159612611}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -12, y: 9, z: 0}
+  m_LocalPosition: {x: -10, y: 9, z: 0}
   m_LocalScale: {x: 6, y: 6, z: 6}
   m_Children: []
   m_Father: {fileID: 2067294369}
@@ -25683,7 +25683,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d27d1749579d7c940bf0f23467d91266, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  centerDampingRange: 20
+  centerDampingRange: 14
   centerXVal: 0
   centerSkinScale: 6
   normalSkinScale: 4
