@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 using TMPro;
 
-[RequireComponent(typeof(Rigidbody))]
-public class WelcomePage : MonoBehaviour
+public class BallPreview : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI totalScore;
     [SerializeField] TextMeshProUGUI highScore;

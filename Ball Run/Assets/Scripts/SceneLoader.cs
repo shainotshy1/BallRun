@@ -8,11 +8,8 @@ public class SceneLoader : MonoBehaviour
     Canvas pauseCanvas;
     Canvas gameOverCanvas;
 
-    [SerializeField] Transform ball;
-    bool loadingGame;
     private void Start()
     {
-        loadingGame = false;
         GameObject pause = GameObject.FindGameObjectWithTag("Pause");
         GameObject gameOver = GameObject.FindGameObjectWithTag("GameOver");
         if (pause != null)
@@ -45,20 +42,7 @@ public class SceneLoader : MonoBehaviour
     }
     public void LoadGame()
     {
-        if (ball != null&&!loadingGame)
-        {
-            StartCoroutine(LoadGameCoroutine());
-        }
-    }
-    IEnumerator LoadGameCoroutine()
-    {
-        while (ball.localPosition.y > 0)
-        {
-            yield return new WaitForEndOfFrame();
-            loadingGame = true;
-        }
         SceneManager.LoadScene(1);
-        loadingGame = false;
     }
     public void Replay()
     {
