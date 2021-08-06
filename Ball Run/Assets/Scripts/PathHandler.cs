@@ -14,7 +14,6 @@ public class PathHandler : MonoBehaviour
     [SerializeField] float maxSpeed;
     [SerializeField] float initialAcceleration;
     [SerializeField] float acceleration;
-    [SerializeField] Transform playerBall;
     [SerializeField] float platformAlignSpeed;
     [SerializeField] List<GameObject> _straightPaths;
     [SerializeField] GameObject rightTurn;
@@ -46,6 +45,7 @@ public class PathHandler : MonoBehaviour
     int platformsSinceLastTurn = 0;
     bool directionSet;
     TurnType currentTurnType;
+    Transform playerBall;
     Transform playerTransform;
     TextMeshProUGUI distanceBoard;
     private void Start()
@@ -92,6 +92,9 @@ public class PathHandler : MonoBehaviour
     }
     private void Update()
     {
+        Transform playerParentTransform = FindObjectOfType<PlayerCollisionHandler>().GetComponent<Transform>();
+        playerBall = playerParentTransform.GetChild(0);
+
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             Application.Quit();
@@ -102,8 +105,11 @@ public class PathHandler : MonoBehaviour
 
         movementSpeed = (movementSpeed < initialSpeed) ? movementSpeed + Time.deltaTime * initialAcceleration : movementSpeed;
 
-        float diameter = playerBall.localScale.x;
-        playerBall.Rotate(Time.deltaTime * movementSpeed * 180 / (Mathf.PI * diameter), 0,0);
+        if (playerBall != null)
+        {
+            float diameter = playerBall.localScale.x;
+            playerBall.Rotate(Time.deltaTime * movementSpeed * 180 / (Mathf.PI * diameter), 0, 0);
+        }
         IncreaseDistance();
         TurnPlayer();
         CreatePath();

@@ -7,6 +7,9 @@ using UnityEngine;
 
 public class PlayerCollisionHandler: MonoBehaviour
 {
+    [SerializeField] float skinYPos;
+    [SerializeField] float skinScale;
+
     [HideInInspector] public bool playerGrounded;
     public ScoreHandler scoreHandler;
 
@@ -14,6 +17,9 @@ public class PlayerCollisionHandler: MonoBehaviour
     {
         scoreHandler = new ScoreHandler(0);
         playerGrounded = false;
+
+        GameObject selectedSkin = Instantiate(SkinSelectionHandler.skinTypes[PlayerPrefs.GetInt("SelectedSkinIndex")],new Vector3(0,skinYPos,0), Quaternion.Euler(0,0,0), transform);
+        selectedSkin.transform.localScale = new Vector3(skinScale, skinScale, skinScale);
     }
 
     private void OnCollisionStay(Collision collision)
