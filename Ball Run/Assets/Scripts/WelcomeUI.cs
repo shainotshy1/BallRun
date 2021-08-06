@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using TMPro;
 
-public class BallPreview : MonoBehaviour
+public class WelcomeUI : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI totalScore;
     [SerializeField] TextMeshProUGUI highScore;
@@ -18,6 +18,7 @@ public class BallPreview : MonoBehaviour
     public void UpdateVolumeValue()
     {
         PlayerPrefs.SetFloat("Volume",slider.value);
+        PlayerPrefs.Save();
     }
     private void DisplayScores()
     {

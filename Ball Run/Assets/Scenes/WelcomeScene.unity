@@ -519,8 +519,8 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: WelcomePage, Assembly-CSharp
+      - m_Target: {fileID: 1462000656}
+        m_TargetAssemblyTypeName: WelcomeUI, Assembly-CSharp
         m_MethodName: UpdateVolumeValue
         m_Mode: 1
         m_Arguments:
@@ -761,7 +761,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2067294370}
+      - m_Target: {fileID: 1462000655}
         m_TargetAssemblyTypeName: SceneLoader, Assembly-CSharp
         m_MethodName: LoadGame
         m_Mode: 1
@@ -1153,6 +1153,8 @@ GameObject:
   - component: {fileID: 1462000653}
   - component: {fileID: 1462000652}
   - component: {fileID: 1462000651}
+  - component: {fileID: 1462000656}
+  - component: {fileID: 1462000655}
   m_Layer: 5
   m_Name: Welcome
   m_TagString: Untagged
@@ -1241,6 +1243,33 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &1462000655
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1462000650}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6714acfffbf099d4fa936de1d117fdf0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1462000656
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1462000650}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3395f22cf06ef754287ebabbe8bba79a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  totalScore: {fileID: 2019842793}
+  highScore: {fileID: 159045608}
+  slider: {fileID: 1005172933}
 --- !u!1 &1551475870
 GameObject:
   m_ObjectHideFlags: 0
@@ -2030,7 +2059,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2067294369}
-  - component: {fileID: 2067294370}
   m_Layer: 0
   m_Name: Skins
   m_TagString: Untagged
@@ -2052,18 +2080,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2067294370
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2067294368}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6714acfffbf099d4fa936de1d117fdf0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &448449463372029408
 Transform:
   m_ObjectHideFlags: 0
