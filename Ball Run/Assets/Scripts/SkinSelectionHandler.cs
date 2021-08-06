@@ -9,13 +9,16 @@ public class SkinSelectionHandler : MonoBehaviour,IDragHandler,IBeginDragHandler
     [SerializeField] float centerXVal;
     [SerializeField] float centerSkinScale;
     [SerializeField] float normalSkinScale;
+    [SerializeField] float scrollingSlowDoneSpeed;
     [SerializeField] float movementScaleFactor;
-    [SerializeField] float scrollSlowDownSpeed;
+    [SerializeField] float recenterSpeed;
     [SerializeField] List<Transform> skins;
 
 
     float skinTransformDelta;
+    bool isSlowing;
     bool isDragging;
+    bool dragEnabled;
     bool centered;
 
     private void Start()
@@ -23,19 +26,21 @@ public class SkinSelectionHandler : MonoBehaviour,IDragHandler,IBeginDragHandler
         skinTransformDelta = 0;
         isDragging = false;
         centered = false;
+        dragEnabled = true;
     }
     public void OnDrag(PointerEventData eventData)
     {
-        skinTransformDelta = eventData.delta.x / movementScaleFactor;
+        if(dragEnabled) skinTransformDelta = eventData.delta.x / movementScaleFactor;
     }
     public void OnBeginDrag(PointerEventData eventData)
     {
-        isDragging = true;
+        isDragging = dragEnabled;
         centered = false;
     }
     public void OnEndDrag(PointerEventData eventData)
     {
         isDragging = false;
+        isSlowing = true;
     }
     private int IdentifyCenterSkin()
     {
@@ -69,18 +74,34 @@ public class SkinSelectionHandler : MonoBehaviour,IDragHandler,IBeginDragHandler
 
             skins[i].localScale = normalScale + interpolateValue * targetScaleIncrease;
         }
-
         if (!isDragging && skins.Count > 0 && !centered)
         {
-            int sign = CalculateSign(centerXVal - skins[selectedSkin].position.x);
-            skinTransformDelta = sign * scrollSlowDownSpeed;
-
-            ScrollSkins();
-
-            if (CalculateSign(centerXVal - skins[selectedSkin].position.x) != sign)
+            if (isSlowing)
             {
-                skinTransformDelta = centerXVal - skins[selectedSkin].position.x;
-                centered = true;
+                int sign = CalculateSign(skinTransformDelta);
+
+                skinTransformDelta -= sign * scrollingSlowDoneSpeed*Time.deltaTime;
+
+                if (CalculateSign(skinTransformDelta) != sign||Mathf.Abs(skinTransformDelta)<=Mathf.Epsilon)
+                {
+                    skinTransformDelta = 0;
+                    isSlowing = false;
+                }
+                ScrollSkins();
+            }
+            else
+            {
+                isSlowing = false;
+                int sign = CalculateSign(centerXVal - skins[selectedSkin].position.x);
+                skinTransformDelta = sign * recenterSpeed*Time.deltaTime;
+
+                ScrollSkins();
+
+                if (CalculateSign(centerXVal - skins[selectedSkin].position.x) != sign)
+                {
+                    skinTransformDelta = centerXVal - skins[selectedSkin].position.x;
+                    centered = true;
+                }
             }
         }
         else
@@ -95,7 +116,22 @@ public class SkinSelectionHandler : MonoBehaviour,IDragHandler,IBeginDragHandler
         {
             skin.position = new Vector3(skin.position.x + skinTransformDelta, skin.position.y, skin.position.z);
         }
-        skinTransformDelta = 0;
+        if (skins.Count > 0)
+        {
+            if (Mathf.Abs(skins[IdentifyCenterSkin()].position.x - centerXVal) >  centerDampingRange)
+            {
+                dragEnabled = false;
+                skinTransformDelta = 0;
+            }
+            else
+            {
+                dragEnabled = true;
+            }
+        }
+        if (!isSlowing&&!isDragging)
+        {
+            skinTransformDelta = 0;
+        }
     }
 
     private int CalculateSign(float val)
