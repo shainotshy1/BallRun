@@ -11,7 +11,9 @@ public class PlatformHandler : MonoBehaviour
     public TurnType turnType;
 
     [SerializeField] List<GameObject> pickups;
+    [SerializeField] List<GameObject> gems;
     [SerializeField] List<GameObject> obstacles;
+    [SerializeField] [Range(0, 1)] float gemSpawnProbability;
     [SerializeField] [Range(0, 1)] float initialObstacleProbability;
     [SerializeField] [Range(0, 1)] float hardObstacleProbability;
     [SerializeField] [Range(0, 0.5f)] float obstacleProbabilityAcceleration;
@@ -41,6 +43,10 @@ public class PlatformHandler : MonoBehaviour
         if (randomInt < maxNum * obstacleProbability)
         {
             GenerateObject(obstacles, angleY);
+        }
+        else if (randomInt < maxNum * (obstacleProbability + gemSpawnProbability))
+        {
+            GenerateObject(gems, angleY);
         }
         else
         {

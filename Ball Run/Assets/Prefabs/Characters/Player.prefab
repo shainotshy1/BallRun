@@ -142,8 +142,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1679708356061120467}
-  m_LocalRotation: {x: 0.15793374, y: 0.68924373, z: -0.15793371, w: 0.68924385}
-  m_LocalPosition: {x: -23.2, y: 28.15, z: 0}
+  m_LocalRotation: {x: 0.15793388, y: 0.6892437, z: -0.15793385, w: 0.6892438}
+  m_LocalPosition: {x: -23.2, y: 628.15, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2222938524286336033}
@@ -351,7 +351,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3164941960348977907}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 600, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3366224108927807444}
@@ -385,10 +385,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 846dc93b9c3bcd6449379d8d3a38b7d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skins:
-  - {fileID: 1468304762203292951, guid: f4db0ac0164ebe242ae1a17fcce68d27, type: 3}
-  - {fileID: 1468304762203292951, guid: 23b6efdd40b09df4b857188728740303, type: 3}
-  skinYPos: 6
+  skinYPos: 606
   skinScale: 6
   playerGrounded: 1
 --- !u!135 &175599980771724194
@@ -450,7 +447,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e51ac38cd8c83544597d83aabce030ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  reviveCost: 500
+  initialReviveCost: 1
+  reviveCostIncrement: 1
   jumpInitialVelocity: 90
   horizontalSpeed: 10
   revivalIndestructableTime: 2

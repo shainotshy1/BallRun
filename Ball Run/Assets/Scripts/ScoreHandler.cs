@@ -8,13 +8,13 @@ public class ScoreHandler
     static int gameScore;
 
     TextMeshProUGUI scoreBoard = GameObject.FindGameObjectWithTag("Score").GetComponent<TextMeshProUGUI>();
+    TextMeshProUGUI gemBoard = GameObject.FindGameObjectWithTag("Gems").GetComponent<TextMeshProUGUI>();
     public ScoreHandler(int score)
     {
         gameScore = score;
     }
     public ScoreHandler()
     {
-
     }
     public static void ResetScore()
     {
@@ -30,15 +30,20 @@ public class ScoreHandler
         }
         PlayerPrefs.Save();
     }
+    public void ChangeGems(int delta)
+    {
+        PlayerPrefs.SetInt("TotalGems", PlayerPrefs.GetInt("TotalGems") + delta);
+        PlayerPrefs.Save();
+    }
     public void DisplayScore()
     {
         if (scoreBoard != null)
         {
             scoreBoard.text = $"Score: {gameScore}";
         }
-        else
+        if (gemBoard != null)
         {
-            Debug.Log("No Score Board");
+            gemBoard.text = $"Gems: {PlayerPrefs.GetInt("TotalGems")}";
         }
     }
 }

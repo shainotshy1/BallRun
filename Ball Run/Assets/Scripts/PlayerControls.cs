@@ -10,13 +10,16 @@ public class PlayerControls : MonoBehaviour
     public static float playerMovementDistance = 0f;
     public static bool collisionsEnabled = true;
 
-    [SerializeField] int reviveCost;
+    [SerializeField] int initialReviveCost;
+    [SerializeField] int reviveCostIncrement;
     [SerializeField] float jumpInitialVelocity;
     [SerializeField] float horizontalSpeed;
     [SerializeField] float revivalIndestructableTime;
     [SerializeField] float revivalCantAffordMessageTime;
     [SerializeField] InputAction movement;
     [SerializeField] TextMeshProUGUI reviveText;
+
+    int currentReviveCost;
 
     enum Position
     {
@@ -38,6 +41,7 @@ public class PlayerControls : MonoBehaviour
     }
     private void Start()
     {
+        currentReviveCost = initialReviveCost;
         setPosition = Position.Middle;
         controlsEnabled = true;
         ScoreHandler.ResetScore();
@@ -147,11 +151,12 @@ public class PlayerControls : MonoBehaviour
     }
     public void Revive()
     {
-        int currentTotal = PlayerPrefs.GetInt("TotalScore");
-        if (currentTotal >= reviveCost)
+        int currentTotal = PlayerPrefs.GetInt("TotalGems");
+        if (currentTotal >= currentReviveCost)
         {
             PathHandler.pathRunning = true;
-            PlayerPrefs.SetInt("TotalScore", currentTotal - reviveCost);
+            PlayerPrefs.SetInt("TotalGems", currentTotal - currentReviveCost);
+            currentReviveCost += reviveCostIncrement;
             canvas.enabled = false;
             ResetPhysics();
             StartCoroutine(RevivalCoroutine());
@@ -163,7 +168,8 @@ public class PlayerControls : MonoBehaviour
     }
     public void ResetReviveButton()
     {
-        reviveText.text = "Revive for " + reviveCost;
+        string costUnit = (currentReviveCost == 1) ? "Gem" : "Gems";
+        reviveText.text = $"Revive for {currentReviveCost} {costUnit}";
     }
     IEnumerator UnableToAffordCoroutine()
     {
@@ -201,6 +207,8 @@ public class PlayerControls : MonoBehaviour
     void Update()
     {
         isGrounded = collisionHandler.playerGrounded;
+        ScoreHandler scoreHandler = new ScoreHandler();
+        scoreHandler.DisplayScore();
 
         if (transform.position.y < -10)
         {

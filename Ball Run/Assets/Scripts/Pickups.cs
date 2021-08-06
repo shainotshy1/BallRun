@@ -5,10 +5,12 @@ using UnityEngine;
 
 public class Pickups : MonoBehaviour
 {
+    [SerializeField] float boxColliderYShift;
     [SerializeField] float period;
     [SerializeField] float boxColliderHeight;
     [SerializeField] float rotationSpeed;
     [SerializeField] int scoreValue;
+    [SerializeField] bool isGem;
 
     private void Update()
     {
@@ -27,7 +29,7 @@ public class Pickups : MonoBehaviour
         if (Mathf.Abs(yChange) >= Mathf.Epsilon)
         {
             transform.localPosition = new Vector3(transform.localPosition.x,yChange*boxColliderHeight+boxColliderHeight/2, transform.localPosition.z);
-            gameObject.GetComponent<BoxCollider>().center = new Vector3(0, gameObject.GetComponent<BoxCollider>().center.x-yChange, 0);
+            gameObject.GetComponent<BoxCollider>().center = new Vector3(0, boxColliderYShift - yChange, 0);
         }
 
         transform.Rotate(new Vector3(0, 1, 0), Time.deltaTime * rotationSpeed);
@@ -37,8 +39,14 @@ public class Pickups : MonoBehaviour
         if (collision.gameObject.tag == "JumpCenter")
         {
             ScoreHandler scoreHandler = new ScoreHandler();
-            scoreHandler.ChangeScore(scoreValue);
-            scoreHandler.DisplayScore();
+            if (isGem)
+            {
+                scoreHandler.ChangeGems(scoreValue);
+            }
+            else
+            { 
+                scoreHandler.ChangeScore(scoreValue);
+            }
             Destroy(gameObject);
         }
     }

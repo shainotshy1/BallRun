@@ -9,6 +9,7 @@ public class WelcomeUI : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI totalScore;
     [SerializeField] TextMeshProUGUI highScore;
+    [SerializeField] TextMeshProUGUI gemTotal;
     [SerializeField] Slider slider;
     private void Start()
     {
@@ -24,5 +25,6 @@ public class WelcomeUI : MonoBehaviour
     {
         totalScore.text = $"Total: {PlayerPrefs.GetInt("TotalScore")}";
         highScore.text = $"High Score: {PlayerPrefs.GetInt("HighScore")}";
+        gemTotal.text = $"Gems: {PlayerPrefs.GetInt("TotalGems")}";
     }
 }
