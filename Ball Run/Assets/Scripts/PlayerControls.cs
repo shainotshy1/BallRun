@@ -41,6 +41,7 @@ public class PlayerControls : MonoBehaviour
     }
     private void Start()
     {
+        PlatformHandler.pickupsBetweenGems = 0;
         currentReviveCost = initialReviveCost;
         setPosition = Position.Middle;
         controlsEnabled = true;

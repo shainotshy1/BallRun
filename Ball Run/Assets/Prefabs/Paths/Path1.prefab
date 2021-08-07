@@ -1033,7 +1033,7 @@ MonoBehaviour:
   initialObstacleProbability: 0.2
   hardObstacleProbability: 0.3
   obstacleProbabilityAcceleration: 0.005
-  minPickupsBetweenGems: 200
+  minPickupsBetweenGems: 250
 --- !u!65 &7024123876925480666
 BoxCollider:
   m_ObjectHideFlags: 0
