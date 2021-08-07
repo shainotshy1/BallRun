@@ -17,10 +17,12 @@ public class PlatformHandler : MonoBehaviour
     [SerializeField] [Range(0, 1)] float initialObstacleProbability;
     [SerializeField] [Range(0, 1)] float hardObstacleProbability;
     [SerializeField] [Range(0, 0.5f)] float obstacleProbabilityAcceleration;
+    [SerializeField] int minPickupsBetweenGems;
 
     static readonly System.Random random = new System.Random();
     static int lastPickupPosition = (int)(random.NextDouble() * 3);
     static int pickupsInRow = 0;
+    static int pickupsBetweenGems = 0;
     static float obstacleProbability = -1;
     int minPickupsInRow = 5;
     void Start()
@@ -44,13 +46,15 @@ public class PlatformHandler : MonoBehaviour
         {
             GenerateObject(obstacles, angleY);
         }
-        else if (randomInt < maxNum * (obstacleProbability + gemSpawnProbability))
+        else if (randomInt < maxNum * (obstacleProbability + gemSpawnProbability)&&pickupsBetweenGems>=minPickupsBetweenGems)
         {
             GenerateObject(gems, angleY);
+            pickupsBetweenGems = 0;
         }
         else
         {
             GenerateObject(pickups, angleY);
+            pickupsBetweenGems++;
         }
 
     }

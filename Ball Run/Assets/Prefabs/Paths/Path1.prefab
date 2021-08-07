@@ -1029,10 +1029,11 @@ MonoBehaviour:
   - {fileID: 6664903320304924119, guid: e7088ba8f0d08ab4983bf949551d6b02, type: 3}
   - {fileID: 1734904242328919759, guid: 601fe0c63ca42044c9366949c0f46f92, type: 3}
   - {fileID: 5563232541196103003, guid: 6fa6fc0b004f1384ea680b82a1d7e131, type: 3}
-  gemSpawnProbability: 0.01
+  gemSpawnProbability: 0.05
   initialObstacleProbability: 0.2
   hardObstacleProbability: 0.3
   obstacleProbabilityAcceleration: 0.005
+  minPickupsBetweenGems: 200
 --- !u!65 &7024123876925480666
 BoxCollider:
   m_ObjectHideFlags: 0
