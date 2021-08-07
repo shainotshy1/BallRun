@@ -154,7 +154,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   initialSpeed: 75
   scaleDistanceFactor: 0.1
-  maxSpeed: 150
+  maxSpeed: 175
   initialAcceleration: 50
   acceleration: 1.5
   platformAlignSpeed: 10
