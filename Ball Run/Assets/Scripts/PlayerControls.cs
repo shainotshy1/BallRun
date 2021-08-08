@@ -18,6 +18,8 @@ public class PlayerControls : MonoBehaviour
     [SerializeField] float revivalCantAffordMessageTime;
     [SerializeField] InputAction movement;
     [SerializeField] TextMeshProUGUI reviveText;
+    [SerializeField] GameObject reviveCanvas;
+    [SerializeField] GameObject unableToAffordCanvas;
 
     int currentReviveCost;
 
@@ -32,12 +34,13 @@ public class PlayerControls : MonoBehaviour
     Transform bodyTransform;
     Rigidbody rigidBody;
     PlayerCollisionHandler collisionHandler;
-    Canvas canvas;
+    Canvas playerDeathCanvas;
     
     private void Awake()
     {
-        canvas = GameObject.FindGameObjectWithTag("GameOver").GetComponent<Canvas>();
-        canvas.enabled = false;
+        playerDeathCanvas = GameObject.FindGameObjectWithTag("GameOver").GetComponent<Canvas>();
+        playerDeathCanvas.enabled = false;
+        unableToAffordCanvas.SetActive(false);
     }
     private void Start()
     {
@@ -147,7 +150,7 @@ public class PlayerControls : MonoBehaviour
     {
         ResetReviveButton();
         PathHandler.pathRunning = false;
-        canvas.enabled = true;
+        playerDeathCanvas.enabled = true;
         PausePhysics();
     }
     public void Revive()
@@ -158,7 +161,7 @@ public class PlayerControls : MonoBehaviour
             PathHandler.pathRunning = true;
             PlayerPrefs.SetInt("TotalGems", currentTotal - currentReviveCost);
             currentReviveCost += reviveCostIncrement;
-            canvas.enabled = false;
+            playerDeathCanvas.enabled = false;
             ResetPhysics();
             StartCoroutine(RevivalCoroutine());
         }
@@ -169,12 +172,14 @@ public class PlayerControls : MonoBehaviour
     }
     public void ResetReviveButton()
     {
-        string costUnit = (currentReviveCost == 1) ? "Gem" : "Gems";
-        reviveText.text = $"Revive for {currentReviveCost} {costUnit}";
+        unableToAffordCanvas.SetActive(false);
+        reviveCanvas.SetActive(true);
+        reviveText.text = $"Revive for {currentReviveCost}";
     }
     IEnumerator UnableToAffordCoroutine()
     {
-        reviveText.text = "Can't Afford";
+        reviveCanvas.SetActive(false);
+        unableToAffordCanvas.SetActive(true);
         float time = revivalCantAffordMessageTime;
         while (time >= 0)
         {

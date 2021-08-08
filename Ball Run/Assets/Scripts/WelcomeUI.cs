@@ -23,8 +23,8 @@ public class WelcomeUI : MonoBehaviour
     }
     private void DisplayScores()
     {
-        totalScore.text = $"Total: {PlayerPrefs.GetInt("TotalScore")}";
+        totalScore.text = $"{PlayerPrefs.GetInt("TotalScore")}";
         highScore.text = $"High Score: {PlayerPrefs.GetInt("HighScore")}";
-        gemTotal.text = $"Gems: {PlayerPrefs.GetInt("TotalGems")}";
+        gemTotal.text = $"{PlayerPrefs.GetInt("TotalGems")}";
     }
 }

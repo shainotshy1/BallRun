@@ -128,7 +128,7 @@ public class PathHandler : MonoBehaviour
     }
     private void DisplayDistance()
     {
-        distanceBoard.text = $"Distance: {(int)distance} m";
+        distanceBoard.text = $"{(int)distance} m";
     }
     private void TurnPlayer()
     {

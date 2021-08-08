@@ -39,11 +39,11 @@ public class ScoreHandler
     {
         if (scoreBoard != null)
         {
-            scoreBoard.text = $"Score: {gameScore}";
+            scoreBoard.text = $"{gameScore}";
         }
         if (gemBoard != null)
         {
-            gemBoard.text = $"Gems: {PlayerPrefs.GetInt("TotalGems")}";
+            gemBoard.text = $"{PlayerPrefs.GetInt("TotalGems")}";
         }
     }
 }
