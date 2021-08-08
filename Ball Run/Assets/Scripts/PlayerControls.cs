@@ -34,12 +34,9 @@ public class PlayerControls : MonoBehaviour
     Transform bodyTransform;
     Rigidbody rigidBody;
     PlayerCollisionHandler collisionHandler;
-    Canvas playerDeathCanvas;
     
     private void Awake()
     {
-        playerDeathCanvas = GameObject.FindGameObjectWithTag("GameOver").GetComponent<Canvas>();
-        playerDeathCanvas.enabled = false;
         unableToAffordCanvas.SetActive(false);
     }
     private void Start()
@@ -150,7 +147,7 @@ public class PlayerControls : MonoBehaviour
     {
         ResetReviveButton();
         PathHandler.pathRunning = false;
-        playerDeathCanvas.enabled = true;
+        GetComponent<SceneLoader>().SetGameOverActive(true);
         PausePhysics();
     }
     public void Revive()
@@ -161,7 +158,7 @@ public class PlayerControls : MonoBehaviour
             PathHandler.pathRunning = true;
             PlayerPrefs.SetInt("TotalGems", currentTotal - currentReviveCost);
             currentReviveCost += reviveCostIncrement;
-            playerDeathCanvas.enabled = false;
+            GetComponent<SceneLoader>().SetGameOverActive(false);
             ResetPhysics();
             StartCoroutine(RevivalCoroutine());
         }

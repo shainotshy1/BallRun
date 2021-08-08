@@ -5,35 +5,38 @@ using UnityEngine.SceneManagement;
 
 public class SceneLoader : MonoBehaviour
 {
-    Canvas pauseCanvas;
-    Canvas gameOverCanvas;
+    GameObject pauseCanvas;
+    GameObject gameOverCanvas;
 
     private void Start()
     {
-        GameObject pause = GameObject.FindGameObjectWithTag("Pause");
-        GameObject gameOver = GameObject.FindGameObjectWithTag("GameOver");
-        if (pause != null)
-        {
-            pauseCanvas = pause.GetComponent<Canvas>();
-            pauseCanvas.enabled = false;
-        }
-        if (gameOver != null)
-        {
-            gameOverCanvas = gameOver.GetComponent<Canvas>();
-            gameOverCanvas.enabled = false;
-        }
+        pauseCanvas = GameObject.FindGameObjectWithTag("Pause");
+        gameOverCanvas = GameObject.FindGameObjectWithTag("GameOver");
+
+        if(pauseCanvas != null) pauseCanvas.SetActive(false);
+        if(gameOverCanvas!=null) gameOverCanvas.SetActive(false);
     }
     public void Pause()
     {
-        if (!gameOverCanvas.enabled)
+        if (gameOverCanvas != null)
         {
-            pauseCanvas.enabled = true;
-            PathHandler.pathRunning = false;
+            if (!gameOverCanvas.activeInHierarchy)
+            {
+                pauseCanvas.SetActive(true);
+                PathHandler.pathRunning = false;
+            }
+        }
+    }
+    public void SetGameOverActive(bool active)
+    {
+        if (gameOverCanvas != null)
+        {
+            gameOverCanvas.SetActive(active);
         }
     }
     public void Resume()
     {
-        pauseCanvas.enabled = false;
+        pauseCanvas.SetActive(false);
         PathHandler.pathRunning = true;
     }
     public void LoadMainMenu()
