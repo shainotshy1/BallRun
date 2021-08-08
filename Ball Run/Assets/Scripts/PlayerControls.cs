@@ -10,6 +10,7 @@ public class PlayerControls : MonoBehaviour
     public static float playerMovementDistance = 0f;
     public static bool collisionsEnabled = true;
 
+    [SerializeField] float obstacleTransparency;
     [SerializeField] int initialReviveCost;
     [SerializeField] int reviveCostIncrement;
     [SerializeField] float jumpInitialVelocity;
@@ -20,6 +21,7 @@ public class PlayerControls : MonoBehaviour
     [SerializeField] TextMeshProUGUI reviveText;
     [SerializeField] GameObject reviveCanvas;
     [SerializeField] GameObject unableToAffordCanvas;
+    [SerializeField] List<Material> obstacleMaterials;
 
     int currentReviveCost;
 
@@ -29,6 +31,7 @@ public class PlayerControls : MonoBehaviour
     }
     bool isGrounded;
     bool controlsEnabled;
+    Vector3 currentVelocity;
     Vector3 movementDirection = new Vector3(1, 0, 0);
     Position setPosition;
     Transform bodyTransform;
@@ -41,6 +44,7 @@ public class PlayerControls : MonoBehaviour
     }
     private void Start()
     {
+        currentVelocity = Vector3.zero;
         PlatformHandler.pickupsBetweenGems = 0;
         currentReviveCost = initialReviveCost;
         setPosition = Position.Middle;
@@ -187,6 +191,7 @@ public class PlayerControls : MonoBehaviour
     }
     IEnumerator RevivalCoroutine()
     {
+        SetObstacleTransparency(obstacleTransparency);
         collisionsEnabled = false;
         float time = revivalIndestructableTime;
         while (time > 0)
@@ -194,7 +199,17 @@ public class PlayerControls : MonoBehaviour
             time -= Time.deltaTime;
             yield return new WaitForEndOfFrame();
         }
+        SetObstacleTransparency(255);
         collisionsEnabled = true;
+    }
+    private void SetObstacleTransparency(float alpha)
+    {
+        alpha = Mathf.Clamp(alpha,0,1);
+        foreach(Material material in obstacleMaterials)
+        {
+            Color newColor = new Color(material.color.r, material.color.g, material.color.b, alpha);
+            material.color = newColor;
+        }
     }
     private void PausePhysics()
     {
@@ -204,11 +219,13 @@ public class PlayerControls : MonoBehaviour
     }
     private void ResetPhysics()
     {
+        rigidBody.velocity = currentVelocity;
         rigidBody.useGravity = true;
         rigidBody.gameObject.GetComponent<SphereCollider>().enabled = true;
     }
     void Update()
     {
+        if(rigidBody.useGravity) currentVelocity = rigidBody.velocity;
         isGrounded = collisionHandler.playerGrounded;
         ScoreHandler scoreHandler = new ScoreHandler();
         scoreHandler.DisplayScore();
@@ -220,5 +237,10 @@ public class PlayerControls : MonoBehaviour
         controlsEnabled = PathHandler.pathRunning;
         if (controlsEnabled) ProcessInput();
         else PausePhysics();
+
+        if (Input.GetKeyDown(KeyCode.G))
+        {
+            PlayerPrefs.SetInt("TotalGems", 1000);
+        }
     }
 }

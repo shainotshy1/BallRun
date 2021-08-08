@@ -1025,6 +1025,10 @@ MonoBehaviour:
   - {fileID: 2665270585600760511, guid: 740737fc8f5d23d428c203a831e9855f, type: 3}
   gems:
   - {fileID: 2665270585600760511, guid: b605a9305f8cb3541a2726a036c94656, type: 3}
+  obstacleMaterials:
+  - {fileID: 2100000, guid: 9b7f527e8cd8e49409b3e4ab6006cfce, type: 2}
+  - {fileID: 2100000, guid: eb441a6f7d7bd1049bcaaf99c3ecce38, type: 2}
+  - {fileID: 2100000, guid: 1db374dac12917742bca4efa5522d310, type: 2}
   obstacles:
   - {fileID: 6664903320304924119, guid: e7088ba8f0d08ab4983bf949551d6b02, type: 3}
   - {fileID: 1734904242328919759, guid: 601fe0c63ca42044c9366949c0f46f92, type: 3}

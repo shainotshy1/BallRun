@@ -3594,6 +3594,14 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1118081187}
     - target: {fileID: 4453937755750949985, guid: fdadfb4ca5a30de408c06a9baefa713b, type: 3}
+      propertyPath: colorSwitchSpeed
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 4453937755750949985, guid: fdadfb4ca5a30de408c06a9baefa713b, type: 3}
+      propertyPath: obstacleTransparency
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4453937755750949985, guid: fdadfb4ca5a30de408c06a9baefa713b, type: 3}
       propertyPath: unableToAffordCanvas
       value: 
       objectReference: {fileID: 324525333}

@@ -447,6 +447,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e51ac38cd8c83544597d83aabce030ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  obstacleTransparency: 60
   initialReviveCost: 1
   reviveCostIncrement: 1
   jumpInitialVelocity: 90
@@ -486,6 +487,12 @@ MonoBehaviour:
       m_Action: Movement
       m_Flags: 8
   reviveText: {fileID: 0}
+  reviveCanvas: {fileID: 0}
+  unableToAffordCanvas: {fileID: 0}
+  obstacleMaterials:
+  - {fileID: 2100000, guid: 9b7f527e8cd8e49409b3e4ab6006cfce, type: 2}
+  - {fileID: 2100000, guid: eb441a6f7d7bd1049bcaaf99c3ecce38, type: 2}
+  - {fileID: 2100000, guid: 1db374dac12917742bca4efa5522d310, type: 2}
 --- !u!114 &4480786597066355418
 MonoBehaviour:
   m_ObjectHideFlags: 0

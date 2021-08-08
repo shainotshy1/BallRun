@@ -18,6 +18,7 @@ public class Pickups : MonoBehaviour
         {
             gameObject.AddComponent<BoxCollider>();
             gameObject.GetComponent<BoxCollider>().size = new Vector3(1f, boxColliderHeight, 1f);
+            gameObject.GetComponent<BoxCollider>().isTrigger = true;
         }
 
         PickupBob();
@@ -34,9 +35,9 @@ public class Pickups : MonoBehaviour
 
         transform.Rotate(new Vector3(0, 1, 0), Time.deltaTime * rotationSpeed);
     }
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        if (collision.gameObject.tag == "JumpCenter")
+        if (other.gameObject.tag == "JumpCenter")
         {
             ScoreHandler scoreHandler = new ScoreHandler();
             if (isGem)
@@ -44,7 +45,7 @@ public class Pickups : MonoBehaviour
                 scoreHandler.ChangeGems(scoreValue);
             }
             else
-            { 
+            {
                 scoreHandler.ChangeScore(scoreValue);
             }
             Destroy(gameObject);
