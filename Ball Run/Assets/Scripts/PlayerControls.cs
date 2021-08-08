@@ -64,6 +64,7 @@ public class PlayerControls : MonoBehaviour
             }
         }
         rigidBody.useGravity = true;
+        SetObstacleTransparency(255);
     }
     private void OnEnable()
     {
