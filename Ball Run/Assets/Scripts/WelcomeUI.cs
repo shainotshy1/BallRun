@@ -13,6 +13,11 @@ public class WelcomeUI : MonoBehaviour
     [SerializeField] Slider slider;
     private void Start()
     {
+        if(PlayerPrefs.GetString("GameStatus","InitialLaunch") == "InitialLaunch")
+        {
+            PlayerPrefs.SetInt("TotalGems", 10);
+            PlayerPrefs.SetString("GameStatus", "CompleteInitialLaunch");
+        }
         DisplayScores();
         slider.value = PlayerPrefs.GetFloat("Volume");
     }
